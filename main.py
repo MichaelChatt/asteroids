@@ -3,7 +3,9 @@ from logger import log_state
 from player import Player
 from asteroids import Asteroid
 from asteroidfield import AsteroidField
+from logger import log_event
 import pygame
+import sys
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -23,6 +25,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+        for rocks in asteroids:
+            if rocks.collides_with(player):
+                log_event("player_hit")
+                print("Game Over")
+                sys.exit()
         screen.fill("black")
         for drawing in drawable:
             drawing.draw(screen)
