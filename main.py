@@ -33,10 +33,11 @@ def main():
                 log_event("player_hit")
                 print("Game Over")
                 sys.exit()
-            for bullets in shots():
+            for bullets in shots:
                 if rocks.collides_with(bullets):
+                    log_event("asteroid_shot")
                     bullets.kill()
-                    rocks.kill()
+                    rocks.split()
         screen.fill("black")
         for drawing in drawable:
             drawing.draw(screen)
